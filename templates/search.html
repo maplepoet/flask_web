@@ -1,25 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="/static/jquery-2.1.4.min.js"></script>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.7/dist/css/bootstrap.min.css">
-    <script src="/static/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <style>
-        .container{
-            width: 80%;
-        }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %} SEARCH {% endblock %}
+
+{% block content %}
     <div class="container">
 {#        标题#}
         <h2>人口统计</h2>
-<!-- {#         图片#} -->
-         <!-- <div class="col-md-4">
-             <img src="../static/basketball.jpg" style="height:700px;width:300px;"/>
-         </div> -->
         <div class="col-md-16">
 {#        根据性别搜索关键词#}
             <div class="row search">
@@ -38,8 +24,8 @@
                 </div>
             </div>
 {#        人口列表#}
-            <div class="table-responsive">
-            <!-- <table class="table mytable-striped" > -->
+            <!-- <div class="table-responsive"> -->
+            <table class="table mytable-striped" >
             <table class="table">
                 <thead>
                 <tr>
@@ -49,7 +35,14 @@
                     <th>性别</th>
                     <th>字</th>
                     <th>号</th>
-                    <th>出生年月</th>
+                    <th>出生年份</th>
+                    <th>死亡年份</th>
+                    <th>籍贯</th>
+                    <th>居住地</th>
+                    <th>功名</th>
+                    <th>妻子</th>
+                    <th>女儿</th>
+                    
                 </tr>
                 </thead>
                 <tbody>
@@ -62,32 +55,38 @@
                             <td>{{ item[4]}}</td>
                             <td>{{ item[5]}}</td>
                             <td>{{ item[6]}}</td>
+                            <td>{{ item[7]}}</td>
+                            <td>{{ item[8]}}</td>
+                            <td>{{ item[9]}}</td>
+                            <td>{{ item[10]}}</td>
+                            <td>{{ item[11]}}</td>
+                            <td>{{ item[12]}}</td>
+                            <th> <button type="button"> 修改 </button></th>
                         </tr>
                     {% endfor %}
                 </tbody>
                 </table>
             </div>
-            </div>
+            <!-- </div> -->
             <br>
             <br>
 {#            页数#}
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li>
-                        <a href="/index?page={{ page - 1 }}" aria-label="Previous">
+                        <a href="/search?page={{ page - 1 }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                        {% for pg in prange %}
-                         <li><a href="/index?page={{ pg }}">{{ pg }}</a></li>
+                         <li><a href="/search?page={{ pg }}">{{ pg }}</a></li>
                          {% endfor %}
                     <li>
-                        <a href="/index?page={{ page + 1}}" aria-label="Next">
+                        <a href="/search?page={{ page + 1}}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
     </div>
-</body>
-</html>
+{% endblock %}

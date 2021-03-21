@@ -7,5 +7,6 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
 PyMySQL==1.0.2
+pyunit-calendar==2020.6.2
 SQLAlchemy==1.4.1
 Werkzeug==1.0.1

@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %} ADD {% endblock %}
+
+{% block content %}
+<div class="container">
+    <center>
+    <H1>输入个人信息 </H1> <br>
+  </center>
+    <div class="col col-lg-1">
+      <br>
+      <br>
+      <br>
+      <br>
+      请在左边输入新的人口信息！
+    </div>
+  <form method="POST" action="">
+      <center>
+      <div class="col-md-4">
+      <table class="table table-bordered">
+        <caption>基本的表格布局</caption>
+        <thead>
+          <tr>
+            <th>个人信息</th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>姓</td>
+            <td><input type = "text" name= "fname" /></td>
+          </tr>
+          <tr>
+            <td>名</td>
+            <td><input type = "text" name = "lname" /> </td>
+          </tr>
+          <tr>
+            <td>性别</td>
+            <td>
+              <div class="btn-group">
+                <input type="button" class="btn" name="gender" value="请选择性别" />
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                   <!-- <li><a tabindex="-1" href="#">男</a></li>
+                   <li><a tabindex="-1" href="#">女</a></li> -->
+                   {% for gender in data %}
+                   <li><a class="dropdown-item" href="#">{{ gender }}</a></li>
+                   {% endfor %}
+                   <!-- <li class="divider"></li>
+                   <li><a tabindex="-1" href="#">Other</a></li> -->
+                </ul>
+            </div>
+            <script>
+            $(".dropdown-menu").on('click', 'li a', function(){
+              // $(this).parent().parent().siblings(".btn:first-child").html($(this).text()+' <span class="caret"></span>');
+              $(this).parent().parent().siblings(".btn:first-child").html($(this).text());
+              $(this).parent().parent().siblings(".btn:first-child").val($(this).text());
+              $(this).parent().parent().siblings(".btn:first-child").text($(this).text());
+            });
+          </script>
+            <!-- <input type = "text" name = "gender" />  -->
+          </td>
+          </tr>
+          <tr>
+            <td>字</td>
+            <td><input type = "text" name = "zi" /> </td>
+          </tr>
+          <tr>
+            <td>号</td>
+            <td><input type = "text" name = "hao" /> </td>
+          </tr>
+          <tr>
+            <td>功名</td>
+            <td><input type = "text" name = "gongming" /> </td>
+          </tr>
+          <tr>
+            <td>出生年份</td>
+            <td><input type = "text" name = "yearofbirth" /> </td>
+          </tr>
+          <tr>
+            <td>死亡年份</td>
+            <td><input type = "text" name = "yearofdeath" /> </td>
+          </tr>
+          <tr>
+            <td>籍贯</td>
+            <td><input type = "text" name = "hometown" /> </td>
+          </tr>
+          <tr>
+            <td>居住地</td>
+            <td><input type = "text" name = "residence" /> </td>
+          </tr>
+          <tr>
+            <td>房系</td>
+            <td><input type = "text" name = "fangxi" /> </td>
+          </tr>
+          <tr>
+            <td>字辈</td>
+            <td><input type = "text" name = "zibei" /> </td>
+          </tr>
+          <tr>
+            <td>妻</td>
+            <td><input type = "text" name = "wife" /> </td>
+          </tr>
+          <tr>
+            <td>女</td>
+            <td><input type = "text" name = "daughter" /> </td>
+          </tr>
+        </tbody>
+      </table>
+      <input type = "submit">
+      </center>
+  </form>
+  
+  <div class="col col-lg-1">
+    <br>
+    <br>
+    <br>
+    <br>
+    转换天干地支 
+  </div>
+  <form method="POST" action="">
+    <center>
+    <div class="col-md-4">
+    <table class="table table-bordered">
+      <caption>基本的表格布局</caption>
+      <thead>
+        <tr>
+          <th> </th>
+          <th>输入天干地支</th>
+          <th>公历</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 年 </td>
+          <td><input type = "text" name= "year" id="year"/></td>
+          <script>
+            console.log('{{item[3]}}');
+            document.getElementById("year").value = '{{item[3]}}';
+          </script>
+          <td> {{ item[0]}} </td>
+        </tr>
+        <tr>
+          <td> 月 </td>
+          <td><input type = "text" name= "month" id="month"/></td>
+          <script>
+            console.log('{{item[4]}}');
+            document.getElementById("month").value = '{{item[4]}}';
+        </script>
+          <td> {{ item[1]}} </td>
+        </tr>
+        <tr>
+          <td> 日 </td>
+          <td><input type = "text" name= "day" id="day"/>  </td>
+          <script>
+            console.log('{{item[5]}}');
+            document.getElementById("day").value = '{{item[5]}}';
+        </script>
+          <td> {{ item[2]}} </td>
+        </tr>
+      </tbody>
+    </table>
+    <input type = "submit" value="转换">
+    </div>
+    </center>
+    </form>
+    
+    <div class="col-md-4">
+    <button class="idn" type="button" onClick="window.location.reload();"> 清空 </button>
+    </div>
+  </BODY>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+  <!-- {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+    <div class="alert-message block-message error">
+      <a class="close" href="#">×</a>
+      <ul>
+        {%- for msg in errors %}
+        <li>{{ msg }}</li>
+        {% endfor -%}
+      </ul>
+    </div>
+    {% endif %}
+    {% endwith %} -->
+    </div>
+{% endblock %}
