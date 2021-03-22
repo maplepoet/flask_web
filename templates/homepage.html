@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %} HOMEPAGE {% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{{ url_for('add') }}">添加</a>
+    <a href="{{ url_for('search') }}">查找</a>
+    <a href="{{ url_for('edit') }}">修改</a>
+    </div>
+{% endblock %}

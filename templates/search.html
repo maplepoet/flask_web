@@ -61,7 +61,7 @@
                             <td>{{ item[10]}}</td>
                             <td>{{ item[11]}}</td>
                             <td>{{ item[12]}}</td>
-                            <th> <button type="button"> 修改 </button></th>
+                            <th> <button type="button" onclick="document.location.href = '{{ url_for('edit',id = item[0]) }}';"> 修改 </button></th>
                         </tr>
                     {% endfor %}
                 </tbody>

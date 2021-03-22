@@ -22,9 +22,9 @@ conn = mysql.connect()
 def index():
     return 'welcome to my webpage!'
 
-@app.route('/add/', methods=['GET', 'POST'])
+@app.route('/add', methods=['GET', 'POST'])
 # @app.route('/hello/name')
-def hello(name=None,item=None):
+def add(name=None,item=None):
     genders = ['男','女']
     if (request.method == "POST") and (request.form['year']!=None):
         details = request.form
@@ -103,9 +103,20 @@ def search():
     return render_template('search.html', items=items,page=int(page),prange = page_range)
 
 @app.route('/edit') 
-def edit():
-    item=['1','1','1','1']
-    return render_template('edit.html',item=item)
+@app.route('/edit/<id>', methods=['GET'])
+def edit(id):
+    print(request.args)
+    print(id)
+    sql = "select * from people"
+    sql = sql + " where nameid = " + id
+    cursor =conn.cursor()
+    cursor.execute(sql)
+    items = cursor.fetchone()
+    return render_template('edit.html',item=items,id=items[0])
+
+@app.route('/index') 
+def homepage():
+    return render_template('homepage.html')
          
 def getItems(self,page,keyword=None):
     sql = "select * from people"
