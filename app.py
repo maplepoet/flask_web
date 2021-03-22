@@ -3,8 +3,7 @@ from flask import render_template
 from flaskext.mysql import MySQL
 from pyunit_calendar import BatchCalendar
 import random
-# from mysql import mysql
-# from flaskext.mysql import MySQL
+import sql
 
 mysql = MySQL()
 app=Flask(__name__)
@@ -81,7 +80,7 @@ def add(name=None,item=None):
         cur.execute(sql, (veri_res, firstName, lastName,gender, yearofbirth, yearofdeath, ht, residence, zi, hao, gongming))
         conn.commit()
         cur.close()
-        flash('You were successfully logged in')
+        flash('成功')
         # flash(u'Invalid password provided', 'error')
         return render_template('add.html')
     return render_template('add.html', data=genders, item=None)
@@ -90,44 +89,30 @@ def add(name=None,item=None):
 def data(data=None):
     return render_template('data.html',data=data)
 
-@app.route('/search') 
+@app.route('/search')   # search item according to keywords
 def search():
     page = request.args.get('page')
     if not page or int(page) == 0:
         page = 1
     keyword = request.args.get('keyword')
-    items = getItems(conn, page, keyword)
+    items = sql.getItemsByGender(conn, page, keyword)
     page_range = range(int(page) - 3, int(page) + 2)
     if int(page) < 4:
         page_range = range(1, int(page) + 4)
     return render_template('search.html', items=items,page=int(page),prange = page_range)
 
 @app.route('/edit') 
-@app.route('/edit/<id>', methods=['GET'])
+@app.route('/edit/<id>', methods=['GET','POST'])
 def edit(id):
-    print(request.args)
-    print(id)
-    sql = "select * from people"
-    sql = sql + " where nameid = " + id
-    cursor =conn.cursor()
-    cursor.execute(sql)
-    items = cursor.fetchone()
-    return render_template('edit.html',item=items,id=items[0])
+    if (request.method == 'GET'):  # read data from database
+        items = sql.getItemsById(conn, id)
+        return render_template('edit.html',item=items)
+    if (request.method == 'POST'):  # edit data
+    return render_template('edit.html')
 
 @app.route('/index') 
 def homepage():
     return render_template('homepage.html')
-         
-def getItems(self,page,keyword=None):
-    sql = "select * from people"
-    if keyword:
-        sql = sql + " where gender like '%" + keyword + "%'"
-    start = (int(page) - 1) * 10
-    sql = sql + " limit " + str(start) + ",13"
-    cursor =self.cursor()
-    cursor.execute(sql)
-    items = cursor.fetchall()
-    return items
 
 if __name__=="__main__":
     app.run(port=5000,host="127.0.0.1",debug=True)
