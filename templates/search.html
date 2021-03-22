@@ -6,6 +6,8 @@
     <div class="container">
 {#        标题#}
         <h2>人口统计</h2>
+        <br>
+        <button type="button" onclick="document.location.href='{{ url_for('homepage') }}';">首页</button>
         <div class="col-md-16">
 {#        根据性别搜索关键词#}
             <div class="row search">
@@ -40,6 +42,8 @@
                     <th>籍贯</th>
                     <th>居住地</th>
                     <th>功名</th>
+                    <th>房系</th>
+                    <th>字辈</th>
                     <th>妻子</th>
                     <th>女儿</th>
                     
@@ -61,6 +65,8 @@
                             <td>{{ item[10]}}</td>
                             <td>{{ item[11]}}</td>
                             <td>{{ item[12]}}</td>
+                            <td>{{ item[13]}}</td>
+                            <td>{{ item[14]}}</td>
                             <th> <button type="button" onclick="document.location.href = '{{ url_for('edit',id = item[0]) }}';"> 修改 </button></th>
                         </tr>
                     {% endfor %}

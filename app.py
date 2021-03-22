@@ -22,10 +22,9 @@ def index():
     return 'welcome to my webpage!'
 
 @app.route('/add', methods=['GET', 'POST'])
-# @app.route('/hello/name')
 def add(name=None,item=None):
     genders = ['男','女']
-    if (request.method == "POST") and (request.form['year']!=None):
+    if (request.method == "POST") and ('year' in request.form):
         details = request.form
         year = details['year']
         month = details['month']
@@ -43,46 +42,12 @@ def add(name=None,item=None):
         item.append(day)
         print(item)
         return render_template('add.html',item=item)
-    elif (request.method == "POST"):
+    elif (request.method == "POST" and request.form['fname']!='' and request.form['lname']!=''):
         details = request.form
         print(details)
-        firstName = details['fname']
-        lastName = details['lname']
-        gender = details.get('gender')
-        if (details['yearofbirth']==''):
-            yearofbirth = None
-        else:
-            yearofbirth = details['yearofbirth']
-        if (details['yearofdeath']==''):
-            yearofdeath = None
-        else:
-            yearofdeath = details['yearofdeath']
-        zi = details['zi']
-        hao = details['hao']
-        ht = details['hometown']
-        residence = details['residence']
-        gongming = details['gongming']
-
-        # calculate the unique id (according to the gender)
-        veri_res=''
-        list_num = [1,2,3,4,5,6,7,8,9,0]
-        veri_num = random.sample(list_num,4)
-        for i in range(4):
-            veri_res+=str(veri_num[i])
-        veri_res += yearofbirth
-        if (gender == '男'):
-            veri_res+='1'
-        elif (gender == '女'):
-            veri_res+='0'
-
-        cur = conn.cursor()
-        sql = "INSERT INTO `people`(`nameid`,`surname`,`first_name`,`gender`,`yearofbirth`,`yearofdeath`,`hometown`,`residence`,`zi`,`hao`,`gongming`)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        cur.execute(sql, (veri_res, firstName, lastName,gender, yearofbirth, yearofdeath, ht, residence, zi, hao, gongming))
-        conn.commit()
-        cur.close()
-        flash('成功')
+        sql.addPeople(conn,details)
         # flash(u'Invalid password provided', 'error')
-        return render_template('add.html')
+        return render_template('add.html',item=None)
     return render_template('add.html', data=genders, item=None)
 
 @app.route('/data')
@@ -103,12 +68,14 @@ def search():
 
 @app.route('/edit') 
 @app.route('/edit/<id>', methods=['GET','POST'])
-def edit(id):
-    if (request.method == 'GET'):  # read data from database
+def edit(id=None):
+    if (request.method == 'GET') and (id!=None):  # read data from database
         items = sql.getItemsById(conn, id)
         return render_template('edit.html',item=items)
     if (request.method == 'POST'):  # edit data
-    return render_template('edit.html')
+        # get the new parameters
+        return render_template('edit.html',item=items)
+    return render_template('edit.html',item=None)
 
 @app.route('/index') 
 def homepage():

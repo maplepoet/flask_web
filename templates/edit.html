@@ -5,6 +5,8 @@
 {% block content %}
     <center>
     <h1> 修改信息 </h1>
+    <br>
+    <button type="button" onclick="document.location.href='{{ url_for('homepage') }}';">首页</button>
     </center>
     <div class="container">
         <div class="col col-lg-1">
@@ -16,7 +18,7 @@
           </div>
           <form method="POST" action="">
             <center>
-                <div class="col-md-4">
+                <div class="col-md-8">
                 <table class="table table-bordered">
                   <caption>基本的表格布局</caption>
                   <thead>
@@ -27,35 +29,78 @@
                   </thead>
                   <tbody>
                     <tr>
-                        <td>ID</td>
+                        <td>ID (不可修改) </td>
                         <td> {{item[0]}} </td>
-                        <!-- <td> <input type = "text" name = "id" id="id"/> </td>
-                        <script>
-                            console.log('{{item[0]}}');
-                            document.getElementById("id").value = '{{item[0]}}';
-                        </script> -->
                       </tr>
                     <tr>
-                      <td>姓</td>
-                      <td> <input type = "text" name = "lname" id="lname"/> </td>
+                      <td>姓 (不可修改) </td>
+                      <td> {{item[1]}} </td>
+                    </tr>
+                    <tr>
+                        <td>名 (不可修改) </td>
+                        <td> {{ item[2]}}  </td>
+                    </tr>
+                    <tr>
+                        <td>性别 (不可修改)</td>
+                        <td> {{ item[3]}}  </td>
+                    </tr>
+                    <tr>
+                        <td>字</td>
+                        <td> <input type = "text" name = "zi" id="zi"/></td>
                         <script>
-                            console.log('{{item[1]}}');
-                            document.getElementById("lname").value = '{{item[1]}}';
+                            console.log('{{item[4]}}');
+                            document.getElementById("zi").value = '{{item[4]}}';
                         </script>
                     </tr>
                     <tr>
-                        <td>名</td>
-                        <td> {{ item[2]}}</td>
-                    </tr>
-                    <tr>
-                        <td>性别</td>
-                        <td> {{ item[3]}}</td>
-                    </tr>
+                        <td>号</td>
+                        <td> {{ item[5]}} </td>
+                      </tr>
+                      <tr>
+                        <td>功名</td>
+                        <td> {{ item[6]}} </td>
+                      </tr>
+                      <tr>
+                        <td>出生年份</td>
+                        <td> {{ item[7]}} </td>
+                      </tr>
+                      <tr>
+                        <td>死亡年份</td>
+                        <td> {{ item[8]}} </td>
+                      </tr>
+                      <tr>
+                        <td>籍贯</td>
+                        <td> <input type = "text" name = "hometown" id="hometown"/></td>
+                        <script>
+                            console.log('{{item[9]}}');
+                            document.getElementById("hometown").value = '{{item[9]}}';
+                        </script>
+                      </tr>
+                      <tr>
+                        <td>居住地</td>
+                        <td> {{ item[10]}} </td>
+                      </tr>
+                      <tr>
+                        <td>房系</td>
+                        <td> {{ item[11]}} </td>
+                      </tr>
+                      <tr>
+                        <td>字辈</td>
+                        <td> {{ item[12]}} </td>
+                      </tr>
+                      <tr>
+                        <td>妻</td>
+                        <td> {{ item[13]}} </td>
+                      </tr>
+                      <tr>
+                        <td>女</td>
+                        <td> {{ item[14]}} </td>
+                      </tr>
                   </tbody>    
                 </table>
                 <input type = "submit">
             </center> 
           </form>
-        
+          
     </div>
 {% endblock %}
