@@ -3,26 +3,60 @@
 {% block title %} SEARCH {% endblock %}
 
 {% block content %}
-    <div class="container">
-{#        标题#}
-        <h2>人口统计</h2>
+    <center>
+        <h2>人口统计</h2> 
         <br>
         <button type="button" onclick="document.location.href='{{ url_for('homepage') }}';">首页</button>
+        <button class="idn" type="button" onClick="window.location.reload();"> 清空 </button>
+        <br>
+        <br>
+    </center>
+    <div class="container">
+{#        标题#}
         <div class="col-md-16">
-{#        根据性别搜索关键词#}
+{#        搜索关键词#}
             <div class="row search">
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                     <div class="input-group">
-                        <form action="/index">
+                        <form action="/search">
                             <div class="col-lg-9">
-                              <input type="text" class="form-control" name="keyword" placeholder="关键词">
+                              <input type="text" class="form-control" name="keyword" placeholder="性别">
                             </div>
                              <div class="col-lg-3">
                               <span class="input-group-btn">
-                                <input class="btn btn-default" type="submit"/>
+                                <input class="btn btn-default" type="submit" value="查找"/>
                               </span></div>
                         </form>
                     </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <form action="/search">
+                            <div class="col-lg-9">
+                              <input type="text" class="form-control" name="keyword02" placeholder="姓名">
+                            </div>
+                             <div class="col-lg-3">
+                              <span class="input-group-btn">
+                                <input class="btn btn-default" type="submit" value="查找"/>
+                              </span></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <form action="/search">
+                            <div class="col-lg-9">
+                              <input type="text" class="form-control" name="keyword03" placeholder="字辈">
+                            </div>
+                             <div class="col-lg-3">
+                              <span class="input-group-btn">
+                                <input class="btn btn-default" type="submit" value="查找"/>
+                              </span></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    总共有 {{ count }} 个项目
                 </div>
             </div>
 {#        人口列表#}

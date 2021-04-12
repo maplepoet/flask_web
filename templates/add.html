@@ -3,16 +3,16 @@
 {% block title %} ADD {% endblock %}
 
 {% block content %}
+<center>
+  <H2>输入个人信息 </H2> 
+  <br>
+  <button type="button" onclick="document.location.href='{{ url_for('homepage') }}';">首页</button>
+  <button class="idn" type="button" onClick="window.location.reload();"> 清空 </button>
+  <br>
+</center>
 <div class="container">
-    <center>
-    <H1>输入个人信息 </H1> <br>
-    <button class="idn" type="button" onClick="window.location.reload();"> 清空 </button>
-    <button type="button" onclick="document.location.href='{{ url_for('homepage') }}';">首页</button>
-  </center>
     <div class="col col-lg-1">
-      <br>
-      <br>
-      <br>
+      
       <br>
       <!-- 请在左边输入新的人口信息！ -->
 

@@ -56,16 +56,27 @@ def data(data=None):
     return render_template('data.html',data=data)
 
 @app.route('/search')   # search item according to keywords
-def search():
+@app.route('/search/<keyword>')
+def search(keyword=None):
     page = request.args.get('page')
     if not page or int(page) == 0:
         page = 1
-    keyword = request.args.get('keyword')
-    items = sql.getItemsByGender(conn, page, keyword)
+    print(request.args)
+    items = sql.getItemsByGender(conn, page, None)
+    if (request.args.get('keyword')!=None):
+        keyword = request.args.get('keyword')
+        items = sql.getItemsByGender(conn, page, keyword)
+    if (request.args.get('keyword02')!=None):
+        keyword = request.args.get('keyword02')
+        items = sql.getItemsByName(conn, page, keyword)
+    if (request.args.get('keyword03')!=None):
+        keyword = request.args.get('keyword03')
+        items = sql.getItemsByZibei(conn, page, keyword)
+    count = len(items)
     page_range = range(int(page) - 3, int(page) + 2)
     if int(page) < 4:
         page_range = range(1, int(page) + 4)
-    return render_template('search.html', items=items,page=int(page),prange = page_range)
+    return render_template('search.html', items=items,page=int(page),prange = page_range,count = count)
 
 @app.route('/edit') 
 @app.route('/edit/<id>', methods=['GET','POST'])
@@ -75,6 +86,8 @@ def edit(id=None):
         return render_template('edit.html',item=items)
     if (request.method == 'POST'):  # edit data
         # get the new parameters
+        details = request.form
+        items = sql.update(conn,details,id)
         return render_template('edit.html',item=items)
     return render_template('edit.html',item=None)
 
