@@ -57,22 +57,25 @@ def data(data=None):
 
 @app.route('/search')   # search item according to keywords
 @app.route('/search/<keyword>')
-def search(keyword=None):
+def search(keyword=None,count=0):
     page = request.args.get('page')
     if not page or int(page) == 0:
         page = 1
     print(request.args)
     items = sql.getItemsByGender(conn, page, None)
+    count = sql.getCount(conn)[0]
     if (request.args.get('keyword')!=None):
         keyword = request.args.get('keyword')
         items = sql.getItemsByGender(conn, page, keyword)
+        count = sql.getCountByGender(conn,keyword)[0]
     if (request.args.get('keyword02')!=None):
         keyword = request.args.get('keyword02')
         items = sql.getItemsByName(conn, page, keyword)
+        count = sql.getCountByName(conn,keyword)[0]
     if (request.args.get('keyword03')!=None):
         keyword = request.args.get('keyword03')
         items = sql.getItemsByZibei(conn, page, keyword)
-    count = len(items)
+        count = sql.getCountByZibei(conn,keyword)[0]
     page_range = range(int(page) - 3, int(page) + 2)
     if int(page) < 4:
         page_range = range(1, int(page) + 4)

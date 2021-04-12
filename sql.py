@@ -2,6 +2,13 @@ import app
 import random
 from flask import flash
 
+def getCount(self):
+    sql = "select count(nameid) from people"
+    cursor =self.cursor()
+    cursor.execute(sql)
+    len = cursor.fetchone()
+    return len
+
 def getItemsByGender(self,page,keyword=None):
     sql = "select * from people"
     if keyword:
@@ -12,6 +19,13 @@ def getItemsByGender(self,page,keyword=None):
     cursor.execute(sql)
     items = cursor.fetchall()
     return items
+
+def getCountByGender(self,keyword=None):
+    sql = "select count(nameid) from people where gender = %s"
+    cursor =self.cursor()
+    cursor.execute(sql,(keyword))
+    len = cursor.fetchone()
+    return len
 
 def getItemsByName(self,page,keyword=None):
     sql = "select * from people"
@@ -24,6 +38,15 @@ def getItemsByName(self,page,keyword=None):
     items = cursor.fetchall()
     return items
 
+def getCountByName(self,keyword=None):
+    sql = "select count(nameid) from people"
+    if keyword:
+        sql = sql + " where concat(`surname`,`first_name`) = %s"
+    cursor =self.cursor()
+    cursor.execute(sql,(keyword))
+    len = cursor.fetchone()
+    return len
+
 def getItemsByZibei(self,page,keyword=None):
     sql = "select * from people"
     if keyword:
@@ -34,6 +57,13 @@ def getItemsByZibei(self,page,keyword=None):
     cursor.execute(sql,(keyword))
     items = cursor.fetchall()
     return items
+
+def getCountByZibei(self,keyword=None):
+    sql = "select count(nameid) from people where zibei = %s"
+    cursor =self.cursor()
+    cursor.execute(sql,(keyword))
+    len = cursor.fetchone()
+    return len
 
 def getItemsById(self, keyword=None):
     sql = "select * from people"
