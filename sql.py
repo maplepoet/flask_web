@@ -21,6 +21,26 @@ def getItemsById(self, keyword=None):
     items = cursor.fetchone()
     return items
 
+def delete(self, keyword=None):
+    sql = "delete from people"
+    sql = sql + " where nameid = " + keyword
+    cursor =self.cursor()
+    cursor.execute(sql)
+    items = cursor.fetchone()
+    return items
+
+def parent(self, keyword=None):
+    fatherid = keyword['father1']
+    fathername = keyword['father2']
+    offspringid = keyword['son1']
+    offspringname = keyword['son2']
+    sql = "insert into `father`(`offspringid`,`offspringname`,`fatherid`,`fathername`) values(%s,%s,%s,%s)"
+    cursor = self.cursor()
+    cursor.execute(sql,(offspringid,offspringname,fatherid,fathername))
+    self.commit()
+    cursor.close()
+    flash('成功')
+
 def addPeople(self, details=None):
     firstName = details['fname']
     lastName = details['lname']

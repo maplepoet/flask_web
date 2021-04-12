@@ -14,7 +14,7 @@
       <br>
       <br>
       <br>
-      请在左边输入新的人口信息！
+      <!-- 请在左边输入新的人口信息！ -->
 
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -31,7 +31,7 @@
       <center>
       <div class="col-md-8">
       <table class="table table-bordered">
-        <caption>基本的表格布局</caption>
+        <caption>请输入新的人口信息！</caption>
         <thead>
           <tr>
             <th>个人信息</th>
@@ -54,29 +54,25 @@
             <td><input type = "text" name = "residence" /> </td>
           </tr>
           <tr>
-            <td>性别</td>
+            <td>性别 (不可修改)</td>
             <td>
               <div class="btn-group">
-                <input type="button" class="btn" name="gender" value="" />
+                <input class="btn" type="text" name = "gender" value = " " />
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-                   <!-- <li><a tabindex="-1" href="#">男</a></li>
-                   <li><a tabindex="-1" href="#">女</a></li> -->
                    {% for gender in data %}
                    <li><a class="dropdown-item" href="#">{{ gender }}</a></li>
                    {% endfor %}
-                   <!-- <li class="divider"></li>
-                   <li><a tabindex="-1" href="#">Other</a></li> -->
                 </ul>
             </div>
             <script>
             $(".dropdown-menu").on('click', 'li a', function(){
               // $(this).parent().parent().siblings(".btn:first-child").html($(this).text()+' <span class="caret"></span>');
-              $(this).parent().parent().siblings(".btn:first-child").html($(this).text());
+              // $(this).parent().parent().siblings(".btn:first-child").html($(this).text());
               $(this).parent().parent().siblings(".btn:first-child").val($(this).text());
-              $(this).parent().parent().siblings(".btn:first-child").text($(this).text());
+              // $(this).parent().parent().siblings(".btn:first-child").text($(this).text());
             });
           </script>
             <!-- <input type = "text" name = "gender" />  -->
@@ -97,7 +93,7 @@
             <td><input type = "text" name = "gongming" /> </td>   
           </tr>
           <tr>
-            <td>出生年份</td>
+            <td>出生年份 (不可修改)</td>
             <td><input type = "text" name = "yearofbirth" /> </td> 
             <td>死亡年份</td>
             <td><input type = "text" name = "yearofdeath" /> </td>
@@ -108,7 +104,6 @@
             <td>女</td>
             <td><input type = "text" name = "daughter" /> </td>
           </tr>
-          
         </tbody>
       </table>
       <input type = "submit">
@@ -134,13 +129,13 @@
     <br>
     <br>
     <br>
-    转换天干地支 
+    <!-- 转换天干地支  -->
   </div>
   <form method="POST" action="">
     <center>
     <div class="col-md-8">
     <table class="table table-bordered">
-      <caption>基本的表格布局</caption>
+      <caption>天干地支转换</caption>
       <thead>
         <tr>
           <th> </th>
@@ -151,7 +146,7 @@
       <tbody>
         <tr>
           <td> 年 </td>
-          <td><input type = "text" name= "year" id="year"/></td>
+          <td><input type = "text" name= "year" id="year"/> (例如: 甲子)</td>
           <script>
             document.getElementById("year").value = '{{item[3]}}';
           </script>

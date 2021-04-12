@@ -13,6 +13,7 @@ app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'shanyang'
 app.config['MYSQL_DATABASE_DB'] = 'wenzhou'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+
 mysql.init_app(app)
 conn = mysql.connect()
 # cursor =conn.cursor()
@@ -47,7 +48,7 @@ def add(name=None,item=None):
         print(details)
         sql.addPeople(conn,details)
         # flash(u'Invalid password provided', 'error')
-        return render_template('add.html',item=None)
+        return render_template('add.html',data=genders,item=None)
     return render_template('add.html', data=genders, item=None)
 
 @app.route('/data')
@@ -80,6 +81,21 @@ def edit(id=None):
 @app.route('/index') 
 def homepage():
     return render_template('homepage.html')
+
+@app.route('/delete') 
+@app.route('/delete/<id>', methods=['GET','POST'])
+def delete(id=None):
+    if (request.method == 'GET') and (id!=None):  # read data from database
+        items = sql.delete(conn, id)
+    return search()
+
+@app.route('/parent', methods=['GET','POST'])
+def parent():
+    if (request.method == 'POST'):
+        details = request.form
+        print(details)
+        sql.parent(conn,details)
+    return render_template('parent.html')
 
 if __name__=="__main__":
     app.run(port=5000,host="127.0.0.1",debug=True)

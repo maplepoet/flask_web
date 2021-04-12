@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %} PARENT {% endblock %}
+
+{% block content %}
+    <center>
+    <h1> 添加亲属关系 </h1>
+    <br>
+    <button type="button" onclick="document.location.href='{{ url_for('homepage') }}';">首页</button>
+    <button type="button" onclick="document.location.href='{{ url_for('search') }}';">查找</button>
+    </center>
+    <form method="POST" action="">
+    <div class="container">
+        <table class="table table-bordered">
+            <caption>添加父子关系</caption>
+            <thead>
+              <tr>
+                <th>个人信息</th>
+                <th> </th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> 人物信息 </td>
+                    <td>  id </td>
+                    <td> 姓名 </td>
+                </tr>
+                <tr>
+                    <td> 父亲 </td>
+                    <td><input type="text" name="father1" /></td>
+                    <td><input type="text" name="father2" /></td>
+                </tr>
+                <tr>
+                    <td> 儿子 </td>
+                    <td><input type="text" name="son1" /></td>
+                    <td><input type="text" name="son2" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" />
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class=flashes>
+          {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
+    </div>
+</form>
+{% endblock %}

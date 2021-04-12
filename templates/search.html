@@ -68,6 +68,7 @@
                             <td>{{ item[13]}}</td>
                             <td>{{ item[14]}}</td>
                             <th> <button type="button" onclick="document.location.href = '{{ url_for('edit',id = item[0]) }}';"> 修改 </button></th>
+                            <th> <button type="button" onclick="document.location.href = '{{ url_for('delete',id = item[0]) }}';"> 删除 </button></th>
                         </tr>
                     {% endfor %}
                 </tbody>
