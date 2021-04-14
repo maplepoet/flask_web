@@ -4,6 +4,7 @@ from flask import flash
 
 def getCount(self):
     sql = "select count(nameid) from people"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql)
     len = cursor.fetchone()
@@ -15,6 +16,7 @@ def getItemsByGender(self,page,keyword=None):
         sql = sql + " where gender like '%" + keyword + "%'"
     start = (int(page) - 1) * 10
     sql = sql + " limit " + str(start) + ",13"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql)
     items = cursor.fetchall()
@@ -22,6 +24,7 @@ def getItemsByGender(self,page,keyword=None):
 
 def getCountByGender(self,keyword=None):
     sql = "select count(nameid) from people where gender = %s"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql,(keyword))
     len = cursor.fetchone()
@@ -33,6 +36,7 @@ def getItemsByName(self,page,keyword=None):
         sql = sql + " where concat(`surname`,`first_name`) = %s"
     start = (int(page) - 1) * 10
     sql = sql + " limit " + str(start) + ",13"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql,(keyword))
     items = cursor.fetchall()
@@ -42,6 +46,7 @@ def getCountByName(self,keyword=None):
     sql = "select count(nameid) from people"
     if keyword:
         sql = sql + " where concat(`surname`,`first_name`) = %s"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql,(keyword))
     len = cursor.fetchone()
@@ -53,6 +58,7 @@ def getItemsByZibei(self,page,keyword=None):
         sql = sql + " where zibei = %s"
     start = (int(page) - 1) * 10
     sql = sql + " limit " + str(start) + ",13"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql,(keyword))
     items = cursor.fetchall()
@@ -60,6 +66,7 @@ def getItemsByZibei(self,page,keyword=None):
 
 def getCountByZibei(self,keyword=None):
     sql = "select count(nameid) from people where zibei = %s"
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql,(keyword))
     len = cursor.fetchone()
@@ -68,6 +75,7 @@ def getCountByZibei(self,keyword=None):
 def getItemsById(self, keyword=None):
     sql = "select * from people"
     sql = sql + " where nameid = " + keyword
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql)
     items = cursor.fetchone()
@@ -76,6 +84,7 @@ def getItemsById(self, keyword=None):
 def delete(self, keyword=None):
     sql = "delete from people"
     sql = sql + " where nameid = " + keyword
+    self.ping()  # reconnecting mysql 
     cursor =self.cursor()
     cursor.execute(sql)
     items = cursor.fetchone()
@@ -87,6 +96,7 @@ def parent(self, keyword=None):
     offspringid = keyword['son1']
     offspringname = keyword['son2']
     sql = "insert into `father`(`offspringid`,`offspringname`,`fatherid`,`fathername`) values(%s,%s,%s,%s)"
+    self.ping()  # reconnecting mysql 
     cursor = self.cursor()
     cursor.execute(sql,(offspringid,offspringname,fatherid,fathername))
     self.commit()
@@ -126,8 +136,10 @@ def addPeople(self, details=None):
         veri_res+='1'
     elif (gender == '女'):
         veri_res+='0'
-    cur = self.cursor()
+    
     sql = "INSERT INTO `people`(`nameid`,`surname`,`first_name`,`gender`,`yearofbirth`,`yearofdeath`,`hometown`,`residence`,`zi`,`hao`,`gongming`,`fangxi`,`zibei`,`wife`,`daughter`)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    self.ping()  # reconnecting mysql 
+    cur = self.cursor()
     cur.execute(sql, (veri_res, firstName, lastName,gender, yearofbirth, yearofdeath, ht, residence, zi, hao, gongming,fangxi,zibei,wife,daughter))
     self.commit()
     cur.close()
@@ -143,8 +155,10 @@ def update(self,details=None,id=None):
     zibei = details['zibei']
     wife = details['wife']
     daughter = details['daughter']
-    cur = self.cursor()
+
     sql = "UPDATE people SET hometown=%s, residence=%s, zi=%s,hao=%s,gongming=%s,fangxi=%s,zibei=%s,wife=%s,daughter=%s WHERE nameid = %s"
+    self.ping()  # reconnecting mysql 
+    cur = self.cursor()
     cur.execute(sql, (ht, residence, zi, hao, gongming,fangxi,zibei,wife,daughter,id))
     self.commit()
     cur.close()
