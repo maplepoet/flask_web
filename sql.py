@@ -107,14 +107,8 @@ def addPeople(self, details=None):
     firstName = details['fname']
     lastName = details['lname']
     gender = details.get('gender')
-    if (details['yearofbirth']==''):
-        yearofbirth = None
-    else:
-        yearofbirth = details['yearofbirth']
-    if (details['yearofdeath']==''):
-        yearofdeath = None
-    else:
-        yearofdeath = details['yearofdeath']
+    yearofbirth = [details['yearofbirth'],None][details['yearofbirth']=='']
+    yearofdeath = [details['yearofdeath'],None][details['yearofdeath']=='']
     zi = details['zi']
     hao = details['hao']
     ht = details['hometown']
@@ -131,13 +125,14 @@ def addPeople(self, details=None):
     veri_num = random.sample(list_num,4)
     for i in range(4):
         veri_res+=str(veri_num[i])
-    veri_res += yearofbirth
+    if (yearofbirth!=None):
+        veri_res += yearofbirth
     if (gender == '男'):
         veri_res+='1'
     elif (gender == '女'):
         veri_res+='0'
     
-    sql = "INSERT INTO `people`(`nameid`,`surname`,`first_name`,`gender`,`yearofbirth`,`yearofdeath`,`hometown`,`residence`,`zi`,`hao`,`gongming`,`fangxi`,`zibei`,`wife`,`daughter`)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO `people`(`nameid`,`surname`,`first_name`,`gender`,`yearofbirth`,`yearofdeath`,`hometown`,`residence`,`zi`,`hao`,`gongming`,`fangxi`,`zibei`,`wife`,`daughter`)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     self.ping()  # reconnecting mysql 
     cur = self.cursor()
     cur.execute(sql, (veri_res, firstName, lastName,gender, yearofbirth, yearofdeath, ht, residence, zi, hao, gongming,fangxi,zibei,wife,daughter))
