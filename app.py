@@ -96,8 +96,6 @@ def edit(id=None):
 
 @app.route('/index') 
 def homepage():
-    m = 0
-    print([0,1][m==0])
     return render_template('homepage.html')
 
 @app.route('/delete') 
